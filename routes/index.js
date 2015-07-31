@@ -3,9 +3,7 @@ var router = express.Router();
 var db = require('./../models');
 
 router.get('/', function(req, res, next) {
-  console.log(res.locals);
-  var username = req.session.username;
-  res.render('index', {username: username});
+  res.render('index');
 });
 
 module.exports = router;

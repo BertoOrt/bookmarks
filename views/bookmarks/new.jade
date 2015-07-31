@@ -10,5 +10,10 @@ block content
         input(type='url' name='bookmark' id='bookmark')
         label(for='description') Description: 
         textarea(name='description' id='description')
+        label(for='type') Type: 
+        select(name='type')
+          option(value='website') website
+          option(value='video') video
+          option(value='repo') github repo
         input(type='submit' value='Bookmark!')
     

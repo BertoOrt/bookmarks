@@ -11,6 +11,7 @@ require('dotenv').load();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
+var bookmarks = require('./routes/bookmarks');
 
 var app = express();
 
@@ -27,6 +28,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', function (req, res, next) {
+  if (req.session) {
+    res.locals.userId = req.session.username
+  }
+  next();
+})
+
 app.use('/', routes);
 app.use('/', auth);
 
@@ -34,6 +42,11 @@ app.use('/users/:id', function(req, res, next){
   res.locals.userId = req.params.id;
   next();
 }, users);
+
+app.use('/users/:id/bookmarks', function(req, res, next){
+  res.locals.userId = req.params.id;
+  next();
+}, bookmarks);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
