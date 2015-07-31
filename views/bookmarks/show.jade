@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  main
+    .container
+      if bookmark
+        p= bookmark.name
+        p= bookmark.url
+        p= bookmark.description
+        p= bookmark.type
+      a(href='/users/'+ userId + '/bookmarks') back

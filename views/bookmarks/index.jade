@@ -3,3 +3,8 @@ extends ../layout
 block content
   main
     .container
+      if bookmarks
+        for bookmark in bookmarks
+          p
+            a(href='/users/'+userId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
+      a(href='/users/'+ userId) back

@@ -4,12 +4,22 @@ var db = require('./../models');
 
 router.get('/', function(req, res, next) {
   db.Users.findOne({_id: res.locals.userId}).then(function (user) {
-    res.render('bookmarks/index')
+    console.log('here?');
+    return db.Bookmarks.find({_id: {$in: user.bookmarks}})
+  }).then(function (bookmarks) {
+    console.log('here');
+    res.render('bookmarks/index', {bookmarks: bookmarks})
   })
 });
 
 router.get('/new', function (req, res, next) {
   res.render('bookmarks/new')
+})
+
+router.get('/:id', function (req, res, next) {
+  db.Bookmarks.findOne({_id: req.params.id}).then(function (bookmark) {
+    res.render('bookmarks/show', {bookmark: bookmark})
+  })
 })
 
 router.post('/new', function (req, res, next) {
@@ -21,9 +31,11 @@ router.post('/new', function (req, res, next) {
   var categories = [];
   db.Bookmarks.create({name: name, url: url,
      userId: userId, description: description,
-     type: type, categories: categories}).then(function () {
-       res.redirect('/users/' + res.locals.userId + '/bookmarks')
+     type: type, categories: categories}).then(function (bookmark) {
+      db.Users.findByIdAndUpdate(userId, {$push: {bookmarks: bookmark._id}}, {safe: true, upsert: false, new: true}, function (err, model) {
+      res.redirect('/users/' + userId + '/bookmarks')
     })
+  });
 })
 
 module.exports = router;

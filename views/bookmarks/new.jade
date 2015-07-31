@@ -3,11 +3,11 @@ extends ../layout
 block content
   main
     .container
-      form(action='/new' method='post')
+      form(action='/users/' + userId + '/bookmarks/new' method='post')
         label(for='name') Name: 
         input(type='text' name='name' id='name')
         label(for='bookmark') Bookmark: 
-        input(type='url' name='bookmark' id='bookmark')
+        input(type='url' name='url' id='bookmark')
         label(for='description') Description: 
         textarea(name='description' id='description')
         label(for='type') Type: 
@@ -16,4 +16,5 @@ block content
           option(value='video') video
           option(value='repo') github repo
         input(type='submit' value='Bookmark!')
+      a(href='/users/'+ userId + '/bookmarks') back
     
