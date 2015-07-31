@@ -8,4 +8,5 @@ block content
         p= bookmark.url
         p= bookmark.description
         p= bookmark.type
+      a(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/edit') edit
       a(href='/users/'+ userId + '/bookmarks') back

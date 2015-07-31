@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  main
+    .container
+      form(action='/users/' + userId + '/bookmarks/' + bookmark._id + '/edit' method='post')
+        label(for='name') Name: 
+        input(type='text' name='name' id='name' value=(bookmark.name ? bookmark.name : undefined))
+        label(for='bookmark') Bookmark: 
+        input(type='url' name='url' id='bookmark' value=(bookmark.url ? bookmark.url : undefined))
+        label(for='description') Description: 
+        textarea(name='description' id='description')
+          if bookmark.description
+           !{bookmark.description}
+        label(for='type') Type: 
+        select(name='type')
+          option(value='website' checked=(bookmark.type === 'website' ? true : undefined)) website
+          option(value='video' checked=(bookmark.type === 'video' ? true : undefined)) video
+          option(value='repo' checked=(bookmark.type === 'repo' ? true : undefined)) github repo
+        input(type='submit' value='edit')
+      a(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
+      a(href='/users/'+ userId + '/bookmarks') back
+    
