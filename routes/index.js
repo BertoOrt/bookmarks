@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/stylesheet', function(req, res, next) {
+  res.render('stylesheet');
+});
+
 module.exports = router;

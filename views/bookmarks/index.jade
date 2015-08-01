@@ -7,4 +7,4 @@ block content
         for bookmark in bookmarks
           p
             a(href='/users/'+userId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
-      a(href='/users/'+ userId) back
+      a.button.submit(href='/users/'+ userId) back

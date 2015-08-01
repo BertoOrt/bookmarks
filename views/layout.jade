@@ -6,13 +6,16 @@ html
   body
     header
       .container
-        .title bookmarks
-        .nav
-          if userId
-            a(href='/logout') logout
-          else
-            a(href='/signup') signup
-            a(href='/login') login
+        .header
+          a.title.left(href='/') bookmarks
+          .nav
+            if userId
+              a.right(href='/users/'+ userId + '/bookmarks') my bookmarks 
+              a.right(href='/logout') logout
+            else
+              a.right(href='/signup') signup
+              a.right(href='/login') login
+      .subbanner
     block content
     footer
       .container

@@ -3,6 +3,5 @@ extends ../layout
 block content
   main
     .container
-    a(href='/users/'+ userId + '/bookmarks/') my bookmarks
-    a(href='/users/'+ userId + '/bookmarks/new') New
-    a(href='/') back
+    a.button.new(href='/users/'+ userId + '/bookmarks/new') New
+    a.button.submit(href='/') back

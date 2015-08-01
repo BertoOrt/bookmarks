@@ -1,0 +1,57 @@
+a:link {
+  color: rgba($fourth, 0.5);
+  text-decoration: none;
+}
+
+a:visited {
+  color: $fourth;
+}
+
+a:hover {
+  color: $primary;
+}
+
+a.button {
+  width: 100px;
+  height: 30px;
+  text-decoration: none;
+  color: white;
+  border: 3px solid rgba($black, 0.3);
+  color: white;
+  margin: 1%;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+a.nav {
+  color:white;
+  text-decoration: none;
+  background: none;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: inline-block;
+}
+
+a.nav:hover {
+  background: none;
+  color: grey;
+}
+
+.name {
+  font-size: 120%;
+  display: inline-block;
+  float: right;
+  margin-right: 1%;
+  margin-top: .5%;
+}
+
+form.fit {
+  display: inline-block;
+  width: 100px;
+  height: 36px;
+  margin: 1%;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
