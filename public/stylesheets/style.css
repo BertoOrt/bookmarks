@@ -286,12 +286,10 @@ body {
   height: 100%; }
 
 main {
-  max-width: 1400px;
+  max-width: 960px;
   width: 90%;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 3%;
-  padding-top: 100px; }
+  background-color: rgba(255, 255, 255, 0.95); }
 
 main.index {
   padding-top: 30px; }
@@ -364,8 +362,7 @@ ol {
   margin: 0 auto;
   border: 3px solid rgba(102, 102, 102, 0.3);
   border-radius: 25px;
-  padding: 2%;
-  margin-bottom: 200px; }
+  padding: 2%; }
   .login input {
     width: 80%;
     display: block; }
@@ -403,8 +400,7 @@ ol {
   border: 3px solid rgba(102, 102, 102, 0.3);
   border-radius: 25px;
   padding: 2%;
-  padding-left: 5%;
-  margin-bottom: 200px; }
+  padding-left: 5%; }
   .signup .col1, .signup .col2, .editProfile .col1, .editProfile .col2 {
     width: 50%;
     display: inline-block;

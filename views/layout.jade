@@ -10,11 +10,11 @@ html
           a.title.left(href='/') bookmarks
           .nav
             if userId
-              a.right(href='/users/'+ userId + '/bookmarks') my bookmarks 
               a.right(href='/logout') logout
+              a.right(href='/users/'+ userId + '/bookmarks') my bookmarks 
             else
-              a.right(href='/signup') signup
               a.right(href='/login') login
+              a.right(href='/signup') signup
       .subbanner
     block content
     footer

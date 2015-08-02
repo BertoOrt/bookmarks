@@ -17,7 +17,7 @@ block content
           option(value='website' checked=(bookmark.type === 'website' ? true : undefined)) website
           option(value='video' checked=(bookmark.type === 'video' ? true : undefined)) video
           option(value='repo' checked=(bookmark.type === 'repo' ? true : undefined)) github repo
-        input(type='submit' value='edit')
+        input.show(type='submit' value='edit')
       a.button.delete(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
       a.button.submit(href='/users/'+ userId + '/bookmarks') back
     

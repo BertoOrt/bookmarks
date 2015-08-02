@@ -27,8 +27,11 @@ router.get('/:id/edit', function (req, res, next) {
 })
 
 router.get('/:id/delete', function (req, res, next) {
-  db.Bookmarks.findOneAndRemove({_id: req.params.id}).then(function () {
-    res.redirect('/users/' + res.locals.userId + '/bookmarks')
+  db.Bookmarks.findOneAndRemove({_id: req.params.id}).then(function (bookmark) {
+    var bookmark = bookmark;
+    db.Users.update({_id: bookmark.userId}, {$pull: {bookmarks: bookmark._id}}).then(function () {
+      res.redirect('/users/' + res.locals.userId + '/bookmarks')
+    })
   })
 })
 

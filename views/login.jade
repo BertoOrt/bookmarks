@@ -3,10 +3,11 @@ extends layout
 block content
   main
     .container
-      form(action='/login' method='post')
-        label(for='name') Name: 
-        input(type='text' name='name' id='name')
-        label(for='password') Password: 
-        input(type='password' name='password' id='password')
-        input(type='submit' value='login')
+      .login
+        form(action='/login' method='post')
+          label(for='name') Name: 
+          input(type='text' name='name' id='name')
+          label(for='password') Password: 
+          input(type='password' name='password' id='password')
+          input(type='submit' value='login')
       a.button.submit(href='/') back
