@@ -41,7 +41,7 @@ router.post('/:id/edit', function (req, res, next) {
   var userId = res.locals.userId;
   var description = req.body.description;
   var type = req.body.type;
-  var categories = [];
+  var categories = req.body.categories.split(' ');
   db.Bookmarks.findByIdAndUpdate(req.params.id, {$set: {name: name, url: url,
      userId: userId, description: description,
      type: type, categories: categories}}).then(function (bookmark) {
@@ -55,7 +55,7 @@ router.post('/new', function (req, res, next) {
   var userId = res.locals.userId;
   var description = req.body.description;
   var type = req.body.type;
-  var categories = [];
+  var categories = req.body.categories.split(' ');
   db.Bookmarks.create({name: name, url: url,
      userId: userId, description: description,
      type: type, categories: categories}).then(function (bookmark) {

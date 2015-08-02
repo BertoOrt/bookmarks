@@ -6,8 +6,9 @@ block content
       form(action='/users/' + userId + '/bookmarks/' + bookmark._id + '/edit' method='post')
         label(for='name') Name: 
         input(type='text' name='name' id='name' value=(bookmark.name ? bookmark.name : undefined))
-        label(for='bookmark') Bookmark: 
-        input(type='url' name='url' id='bookmark' value=(bookmark.url ? bookmark.url : undefined))
+        p 
+          label(for='bookmark') Bookmark: 
+          input(type='url' name='url' id='bookmark' value=(bookmark.url ? bookmark.url : undefined))
         label(for='description') Description: 
         textarea(name='description' id='description')
           if bookmark.description
@@ -17,7 +18,14 @@ block content
           option(value='website' checked=(bookmark.type === 'website' ? true : undefined)) website
           option(value='video' checked=(bookmark.type === 'video' ? true : undefined)) video
           option(value='repo' checked=(bookmark.type === 'repo' ? true : undefined)) github repo
-        input.show(type='submit' value='edit')
+        p Add categories: 
+        .categories
+          div(class=(bookmark.categories.indexOf('javascript') > -1 ? 'selected' : undefined)).category javascript 
+          div(class=(bookmark.categories.indexOf('colors') > -1 ? 'selected' : undefined)).category colors 
+          div(class=(bookmark.categories.indexOf('html') > -1 ? 'selected' : undefined)).category html 
+          div(class=(bookmark.categories.indexOf('mongo') > -1 ? 'selected' : undefined)).category mongo 
+        input#categories(type='hidden' name='categories' value=bookmark.categories)
+        input#submit.show(type='submit' value='Edit bookmark!')
       a.button.delete(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
       a.button.submit(href='/users/'+ userId + '/bookmarks') back
     

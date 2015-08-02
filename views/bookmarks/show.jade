@@ -4,9 +4,12 @@ block content
   main
     .container
       if bookmark
-        p= bookmark.name
-        p= bookmark.url
-        p= bookmark.description
-        p= bookmark.type
+        p title: !{bookmark.name}
+        p
+          a(href=bookmark.url) !{bookmark.url}
+        p description: 
+          p !{bookmark.description}
+        p type: 
+          !{bookmark.type}
       a.button.edit(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/edit') edit
       a.button.submit(href='/users/'+ userId + '/bookmarks') back

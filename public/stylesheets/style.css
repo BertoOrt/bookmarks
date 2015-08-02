@@ -102,7 +102,7 @@ table {
   table tr:nth-child(2n+2) {
     background: #FFD6C0; }
 
-input[type=text], input[type=email], input[type=password] {
+input[type=text], input[type=email], input[type=url], input[type=password] {
   border: 3px solid rgba(102, 102, 102, 0.3);
   margin: 1%;
   padding: 1%;
@@ -110,7 +110,7 @@ input[type=text], input[type=email], input[type=password] {
   transition: all 300ms ease;
   background: none; }
 
-input[type='text']:focus, input[type=email]:focus, input[type=password]:focus {
+input[type='text']:focus, input[type=url]:focus, input[type=email]:focus, input[type=password]:focus {
   border: 3px solid #666;
   box-shadow: 6px 6px 0px #440381; }
 
@@ -127,7 +127,9 @@ textarea {
   margin: 1%;
   width: 97%;
   height: 300px;
-  background: none; }
+  background: none;
+  padding: 1%;
+  box-sizing: border-box; }
 
 textarea:focus {
   border: 3px solid #666;
@@ -230,14 +232,14 @@ input[type='submit']:active, input[type='button']:active, button:active, a.butto
   border: 3px solid #666; }
 
 a:link {
-  color: rgba(255, 165, 165, 0.5);
+  color: #EC368D;
   text-decoration: none; }
 
 a:visited {
-  color: #FFA5A5; }
+  color: #EC368D; }
 
 a:hover {
-  color: #EC368D; }
+  color: #FFA5A5; }
 
 a.button {
   width: 100px;
@@ -259,9 +261,8 @@ a.nav {
   margin-right: 2%;
   display: inline-block; }
 
-a.nav:hover {
-  background: none;
-  color: grey; }
+.header .nav a:hover {
+  color: #440381; }
 
 .name {
   font-size: 120%;
@@ -280,7 +281,6 @@ form.fit {
   vertical-align: middle; }
 
 body {
-  background-image: url("/images/desk.jpg");
   background-attachment: fixed;
   background-size: 100% 100%;
   height: 100%; }
@@ -417,18 +417,21 @@ ol {
 .editProfile {
   padding-right: 0; }
 
-.marked, .preview {
-  border: 3px solid rgba(102, 102, 102, 0.3);
-  margin: 1%;
-  width: 97%;
-  height: 300px;
-  background: none;
+.categories {
   padding: 1%;
-  overflow: scroll;
-  box-sizing: border-box; }
+  border: 3px solid rgba(102, 102, 102, 0.3);
+  border-radius: 25px;
+  width: 100%; }
 
-.preview {
-  display: none; }
+.category {
+  padding: 1%;
+  border: 3px solid rgba(102, 102, 102, 0.3);
+  border-radius: 25px;
+  display: inline-block; }
 
-#markdown {
-  margin-bottom: 5%; }
+.category:hover {
+  background: #FFD6C0;
+  cursor: pointer; }
+
+.selected {
+  background: #FFD6C0; }

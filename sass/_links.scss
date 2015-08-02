@@ -1,14 +1,14 @@
 a:link {
-  color: rgba($fourth, 0.5);
+  color: $primary;
   text-decoration: none;
 }
 
 a:visited {
-  color: $fourth;
+  color: $primary;
 }
 
 a:hover {
-  color: $primary;
+  color: $fourth;
 }
 
 a.button {
@@ -33,9 +33,8 @@ a.nav {
   display: inline-block;
 }
 
-a.nav:hover {
-  background: none;
-  color: grey;
+.header .nav a:hover {
+  color: $secondary;
 }
 
 .name {

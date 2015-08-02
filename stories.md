@@ -1,11 +1,10 @@
 - √users can signup
 - √users can logout
 - √users can login
-- users can add a bookmark
-- users can see all their added bookmarks
-- users can edit bookmark
-- users can delete bookmark
+- √users can add a bookmark
+- √users can see all their added bookmarks
+- √users can edit bookmark
+- √users can delete bookmark
 - users can see everybody's bookmark
 - users can add tags to their bookmarks
 - users can search bookmarks by tags(categories)
-- users can

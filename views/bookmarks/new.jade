@@ -6,8 +6,9 @@ block content
       form(action='/users/' + userId + '/bookmarks/new' method='post')
         label(for='name') Name: 
         input(type='text' name='name' id='name')
-        label(for='bookmark') Bookmark: 
-        input(type='url' name='url' id='bookmark')
+        p
+          label(for='bookmark') Bookmark: 
+          input(type='url' name='url' id='bookmark')
         label(for='description') Description: 
         textarea(name='description' id='description')
         label(for='type') Type: 
@@ -15,6 +16,13 @@ block content
           option(value='website') website
           option(value='video') video
           option(value='repo') github repo
-        input.show(type='submit' value='Bookmark!')
+        p Add categories: 
+        .categories
+          .category javascript 
+          .category colors
+          .category html
+          .category mongo
+        input#categories(type='hidden' name='categories')
+        input#submit.show(type='submit' value='Create bookmark!')
       a.button.submit(href='/users/'+ userId + '/bookmarks') back
     
