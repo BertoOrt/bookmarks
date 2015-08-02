@@ -5,6 +5,7 @@ block content
     .container
       h2 My favorites
       for bookmark in bookmarks
-        a(href=(bookmark.url)) !{bookmark.name}
+        p
+          a(href=(bookmark.url)) !{bookmark.name}
       a.button.show(href='/users/'+ userId + '/bookmarks/new') New
       a.button.submit(href='/') back

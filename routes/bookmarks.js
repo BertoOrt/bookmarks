@@ -27,42 +27,61 @@ router.get('/:id/edit', function (req, res, next) {
 })
 
 router.get('/:id/delete', function (req, res, next) {
-  db.Bookmarks.findOneAndRemove({_id: req.params.id}).then(function (bookmark) {
-    var bookmark = bookmark;
-    db.Users.update({_id: bookmark.userId}, {$pull: {bookmarks: bookmark._id}}).then(function () {
-      res.redirect('/users/' + res.locals.userId + '/bookmarks')
-    })
+  var bookmark;
+  db.Bookmarks.findOneAndRemove({_id: req.params.id}).then(function (bm) {
+    bookmark = bm;
+    return db.Users.update({_id: bookmark.userId}, {$pull: {bookmarks: bookmark._id}})
+  }).then(function () {
+    return db.Categories.update({}, {$pull: {bookmarks: bookmark._id}}, {multi: true})
+  }).then(function () {
+    res.redirect('/users/' + res.locals.userId + '/bookmarks')
   })
 })
 
 router.post('/:id/edit', function (req, res, next) {
+  var bookmark;
   var name = req.body.name;
   var url = req.body.url;
   var userId = res.locals.userId;
   var description = req.body.description;
   var type = req.body.type;
   var categories = req.body.categories.split(' ');
+  categories.pop();
   db.Bookmarks.findByIdAndUpdate(req.params.id, {$set: {name: name, url: url,
      userId: userId, description: description,
-     type: type, categories: categories}}).then(function (bookmark) {
+     type: type, categories: categories}}).then(function (bm) {
+    bookmark = bm;
+    return db.Categories.update({}, {$pull: {bookmarks: bookmark._id}}, {multi: true})
+  }).then(function () {
+    return Promise.all(categories.map(function (category) {
+      return db.Categories.update({name: category}, {name: category, $push: {bookmarks: bookmark._id} }, {upsert: true})
+    }))
+  }).then(function () {
     res.redirect('/users/' + userId + '/bookmarks')
   })
 })
 
 router.post('/new', function (req, res, next) {
+  var bookmark;
   var name = req.body.name;
   var url = req.body.url;
   var userId = res.locals.userId;
   var description = req.body.description;
   var type = req.body.type;
   var categories = req.body.categories.split(' ');
+  categories.pop();
   db.Bookmarks.create({name: name, url: url,
-     userId: userId, description: description,
-     type: type, categories: categories}).then(function (bookmark) {
-      db.Users.findByIdAndUpdate(userId, {$push: {bookmarks: bookmark._id}}, {new: true}, function (err, model) {
-      res.redirect('/users/' + userId + '/bookmarks')
-    })
-  });
+    userId: userId, description: description,
+    type: type, categories: categories}).then(function (bm) {
+      bookmark = bm;
+      return db.Users.findByIdAndUpdate(userId, {$push: {bookmarks: bookmark._id}}, {new: true})
+  }).then(function () {
+    return Promise.all(categories.map(function (category) {
+      return db.Categories.update({name: category}, {name: category, $push: {bookmarks: bookmark._id} }, {upsert: true})
+    }))
+  }).then(function () {
+    res.redirect('/users/' + userId + '/bookmarks')
+  })
 })
 
 module.exports = router;

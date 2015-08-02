@@ -4,11 +4,12 @@ block content
   main
     .container
       if bookmark
-        p title: !{bookmark.name}
-        p
+        p name: !{bookmark.name}
+        p link: 
           a(href=bookmark.url) !{bookmark.url}
         p description: 
-          p !{bookmark.description}
+          for paragraph in bookmark.description.split('\n')
+            p= paragraph
         p type: 
           !{bookmark.type}
       a.button.edit(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/edit') edit

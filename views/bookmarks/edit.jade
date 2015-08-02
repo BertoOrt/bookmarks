@@ -26,6 +26,6 @@ block content
           div(class=(bookmark.categories.indexOf('mongo') > -1 ? 'selected' : undefined)).category mongo 
         input#categories(type='hidden' name='categories' value=bookmark.categories)
         input#submit.show(type='submit' value='Edit bookmark!')
-      a.button.delete(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
+      a.button.delete.delete-bookmark(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
       a.button.submit(href='/users/'+ userId + '/bookmarks') back
     

@@ -7,4 +7,10 @@ $( document ).ready(function() {
     $('#categories').val(categories);
     e.preventDefault;
   })
+  $('.delete-bookmark').click(function () {
+    var confirmation = window.confirm('Are you sure you want to delete this bookmark?');
+    if (!confirmation){
+      event.preventDefault();
+    }
+  });
 });
