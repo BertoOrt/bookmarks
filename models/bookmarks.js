@@ -7,6 +7,7 @@ var bookmarkSchema = new mongoose.Schema({
     description: String,
     type: String,
     categories: Array,
+    user: Array,
 });
 
 var Bookmark =  mongoose.model("Bookmark", bookmarkSchema);

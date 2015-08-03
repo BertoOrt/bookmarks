@@ -5,6 +5,10 @@ block content
     .container
       if bookmark
         p name: !{bookmark.name}
+        input#favorite(type='checkbox')
+        label(for='favorite')
+          span
+          |Add to favorites
         p link: 
           a(href=bookmark.url) !{bookmark.url}
         p description: 

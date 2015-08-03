@@ -5,16 +5,12 @@ block content
     .container
       label Search: 
       input.search(type='text')
-      table
-        for category in categories
-          tr
-            td
-              h3= category.name
-            td
-            td
-          for bookmark in category.bookmarks
-            tr
-              td=bookmark.name
-              td=bookmark.url
-              td=typeof bookmark.userId
+      for category in categories
+        h3= category.name
+        for bookmark in category.bookmarks
+          .row
+            .col
+              a(href=bookmark.url) !{bookmark.name}
+            .col
+              !{bookmark.user[0].name}
         
