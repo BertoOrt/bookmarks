@@ -8,15 +8,21 @@ html
     header
       .container
         .header
-          a.title.left(href='/') bookmarks
+          .title
+            a.left(href='/') bookmarks
           .nav
             if userId
-              a.right(href='/logout') logout
-              a.right(href='/users/'+ userId) my favs 
-              a.right(href='/users/'+ userId + '/bookmarks') my bookmarks 
+              .col.right
+                a(href='/logout') logout
+              .col.right
+                a(href='/users/'+ userId) my favs 
+              .col.right
+                a(href='/users/'+ userId + '/bookmarks') my bookmarks 
             else
-              a.right(href='/login') login
-              a.right(href='/signup') signup
+              .col.right
+                a(href='/login') login
+              .col.right
+                a(href='/signup') signup
       .subbanner
     block content
     footer

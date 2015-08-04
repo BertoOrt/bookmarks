@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('./../models');
+var logic = require('./../lib/logic.js');
 
 router.get('/', function(req, res, next) {
   db.Users.findOne({_id: res.locals.userId}).then(function (user) {
@@ -11,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/new', function (req, res, next) {
-  res.render('bookmarks/new')
+  res.render('bookmarks/new', {categories: (logic.categories).sort()})
 })
 
 router.get('/:id', function (req, res, next) {
@@ -31,7 +32,7 @@ router.get('/:id', function (req, res, next) {
 
 router.get('/:id/edit', function (req, res, next) {
   db.Bookmarks.findOne({_id: req.params.id}).then(function (bookmark) {
-    res.render('bookmarks/edit', {bookmark: bookmark})
+    res.render('bookmarks/edit', {bookmark: bookmark, categories: (logic.categories).sort()})
   })
 })
 
@@ -53,12 +54,10 @@ router.post('/:id/edit', function (req, res, next) {
   var url = req.body.url;
   var userId = res.locals.userId;
   var description = req.body.description;
-  var type = req.body.type;
-  var categories = req.body.categories.split(' ');
-  categories.pop();
+  var categories = logic.clean(req.body.categories.split(' '));
   db.Bookmarks.findByIdAndUpdate(req.params.id, {$set: {name: name, url: url,
      userId: userId, description: description,
-     type: type, categories: categories}}).then(function (bm) {
+     categories: categories}}).then(function (bm) {
     bookmark = bm;
     return db.Categories.update({}, {$pull: {bookmarks: bookmark._id}}, {multi: true})
   }).then(function () {
@@ -76,12 +75,10 @@ router.post('/new', function (req, res, next) {
   var url = req.body.url;
   var userId = res.locals.userId;
   var description = req.body.description;
-  var type = req.body.type;
-  var categories = req.body.categories.split(' ');
-  categories.pop();
+  var categories = logic.clean(req.body.categories.split(' '));
   db.Bookmarks.create({name: name, url: url,
     userId: userId, description: description,
-    type: type, categories: categories}).then(function (bm) {
+    categories: categories}).then(function (bm) {
       bookmark = bm;
       return db.Users.findByIdAndUpdate(userId, {$push: {bookmarks: bookmark._id}}, {new: true})
   }).then(function () {

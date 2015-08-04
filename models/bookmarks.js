@@ -5,7 +5,6 @@ var bookmarkSchema = new mongoose.Schema({
     url: String,
     userId: String,
     description: String,
-    type: String,
     categories: Array,
     user: Array,
 });
