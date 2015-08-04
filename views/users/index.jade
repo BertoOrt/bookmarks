@@ -6,6 +6,6 @@ block content
       h2 My favorites
       for bookmark in bookmarks
         p
-          a(href=(bookmark.url)) !{bookmark.name}
+          a(href='/users/'+userId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
       a.button.show(href='/users/'+ userId + '/bookmarks/new') New
       a.button.submit(href='/') back

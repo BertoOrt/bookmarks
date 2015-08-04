@@ -12,6 +12,7 @@ html
           .nav
             if userId
               a.right(href='/logout') logout
+              a.right(href='/users/'+ userId) my favs 
               a.right(href='/users/'+ userId + '/bookmarks') my bookmarks 
             else
               a.right(href='/login') login

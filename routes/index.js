@@ -25,10 +25,22 @@ router.get('/', function(req, res, next) {
       return categories
     })
   }).then(function (categories) {
-    console.log(categories);
     res.render('index', {categories: categories});
   })
 });
+
+router.get('/favorite', function (req, res, next) {
+  var user = req.query.user;
+  var bookmark = req.query.bookmark;
+  var checked = req.query.checked;
+  if (checked === 'yes') {
+    db.Users.update({_id: user}, {$push: {favorites: bookmark}}).then(function (data) {
+    })
+  } else {
+    db.Users.update({_id: user}, {$pull: {favorites: bookmark}}).then(function (data) {
+    })
+  }
+})
 
 router.get('/stylesheet', function(req, res, next) {
   res.render('stylesheet');

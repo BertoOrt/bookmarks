@@ -15,8 +15,17 @@ router.get('/new', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
-  db.Bookmarks.findOne({_id: req.params.id}).then(function (bookmark) {
-    res.render('bookmarks/show', {bookmark: bookmark})
+  var bookmark, favorite;
+  db.Bookmarks.findOne({_id: req.params.id}).then(function (bm) {
+    bookmark = bm;
+    return db.Users.find({favorites: String(bookmark._id)})
+  }).then(function (data) {
+    data.forEach(function (user) {
+      if (String(user._id) === String(res.locals.userId)) {
+        favorite = true
+      }
+    })
+    res.render('bookmarks/show', {bookmark: bookmark, favorite: favorite})
   })
 })
 
