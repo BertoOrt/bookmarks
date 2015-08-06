@@ -12,6 +12,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var bookmarks = require('./routes/bookmarks');
+var categories = require('./routes/categories');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/', function (req, res, next) {
 
 app.use('/', routes);
 app.use('/', auth);
+app.use('/categories', categories);
 
 app.use('/users/:id', function(req, res, next){
   res.locals.userId = req.params.id;

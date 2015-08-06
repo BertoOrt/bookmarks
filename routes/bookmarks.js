@@ -26,7 +26,7 @@ router.get('/:id', function (req, res, next) {
         favorite = true
       }
     })
-    res.render('bookmarks/show', {bookmark: bookmark, favorite: favorite})
+    res.render('bookmarks/show', {bookmark: bookmark, favorite: favorite, categories: (logic.categories).sort()})
   })
 })
 

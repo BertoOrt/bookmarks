@@ -18,11 +18,15 @@ html
                 a(href='/users/'+ userId) my favs 
               .col.right
                 a(href='/users/'+ userId + '/bookmarks') my bookmarks 
+              .col.right
+                a(href='/categories') browse
             else
               .col.right
                 a(href='/login') login
               .col.right
                 a(href='/signup') signup
+              .col.right
+                a(href='/categories') browse
       .subbanner
     block content
     footer

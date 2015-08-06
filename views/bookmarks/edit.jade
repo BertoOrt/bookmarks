@@ -15,10 +15,9 @@ block content
            !{bookmark.description}
         p Add categories: 
         .categories
-          div(class=(bookmark.categories.indexOf('javascript') > -1 ? 'selected' : undefined)).category javascript 
-          div(class=(bookmark.categories.indexOf('colors') > -1 ? 'selected' : undefined)).category colors 
-          div(class=(bookmark.categories.indexOf('html') > -1 ? 'selected' : undefined)).category html 
-          div(class=(bookmark.categories.indexOf('mongo') > -1 ? 'selected' : undefined)).category mongo 
+          for category in categories
+            div(class=(bookmark.categories.indexOf(category) > -1 ? 'selected' : undefined)).category !{category} 
+          !{bookmark.categories}
         input#categories(type='hidden' name='categories' value=bookmark.categories)
         input#submit.show(type='submit' value='Edit bookmark!')
       a.button.delete.delete-bookmark(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
