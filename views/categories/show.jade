@@ -5,6 +5,7 @@ block content
     .container
       h2=category.name
       for bookmark in bookmarks
-        p=bookmark.name
-        p=bookmark
+        p
+          a(href='/users/' + bookmark.userId + '/bookmarks/' + bookmark._id) !{bookmark.name}
+          |  by !{bookmark.user[0].name}
   img.imageRight(src='/images/102.png')  

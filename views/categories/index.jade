@@ -4,8 +4,9 @@ block content
   main
     .container
       h2 Categories
-      for category in categories
-        p 
-          a(href=('/categories/' +  category._id)) 
-            !{category.name}
+      .categories
+        for category in categories
+          #browseCat.category
+            a(href=('/categories/' +  category._id)) 
+              !{category.name}
   img.imageRight(src='/images/candy.png')  

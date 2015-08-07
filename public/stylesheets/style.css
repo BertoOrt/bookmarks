@@ -277,6 +277,10 @@ form.fit {
   text-align: center;
   vertical-align: middle; }
 
+#browseCat a:visited, a:link {
+  text-decoration: none;
+  color: #666; }
+
 body {
   background-attachment: fixed;
   background-size: 100% 100%;

@@ -5,12 +5,5 @@ block content
     .container
       label Search: 
       input.search(type='text')
-      for category in categories
-        h3= category.name
-        for bookmark in category.bookmarks
-          .row
-            .col
-              a(href=bookmark.url) !{bookmark.name}
-            .col
-              !{bookmark.user[0].name}
+      .results
   img.imageRight(src='/images/princess.png')  

@@ -24,4 +24,18 @@ $( document ).ready(function() {
       $.get('/favorite?bookmark='+bookmark+'&user='+user+'&checked='+'no')
     }
   })
+  $('.search').keyup(function () {
+    $('.results').html('');
+    if ($(this).val() !== '') {
+      $.get('/search?search=' + $(this).val(), function (response) {
+        response.categories.forEach(function (category) {
+          console.log(category);
+          $('.results').append('<h3>' + category.name + '</h3>')
+          category.bookmarks.forEach(function (bookmark) {
+            $('.results').append('<p><a href=/users/'+bookmark.userId+'/bookmarks/'+bookmark._id+'>'+bookmark.name+'</a>'+ ' by '+bookmark.user[0].name+'</p>')
+          })
+        })
+      })
+    }
+  })
 });

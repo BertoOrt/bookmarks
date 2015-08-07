@@ -54,3 +54,8 @@ form.fit {
   text-align: center;
   vertical-align: middle;
 }
+
+#browseCat a:visited, a:link {
+  text-decoration: none;
+  color: $black;
+}

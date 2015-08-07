@@ -3,7 +3,11 @@ var router = express.Router();
 var db = require('./../models');
 var logic = require('./../lib/logic.js')
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
+  res.render('index');
+})
+
+router.get('/search', function(req, res, next) {
   var categories;
   db.Categories.find().then(function (cats) {
     var bookmarks;
@@ -25,7 +29,13 @@ router.get('/', function(req, res, next) {
       return categories
     })
   }).then(function (categories) {
-    res.render('index', {categories: categories});
+    var search = req.query.search;
+    var json = categories.filter(function (category) {
+      if (category.name.indexOf(search) > -1) {
+        return category
+      }
+    })
+    res.json({'categories': json})
   })
 });
 
