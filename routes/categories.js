@@ -24,7 +24,7 @@ router.get('/:id', function (req, res, next) {
       return category
     })
   }).then(function (category) {
-    res.render('categories/show', {category: category, bookmarks: bookmarks})
+    res.render('categories/show', {category: category, bookmarks: bookmarks, cookieId: req.session.username})
   })
 })
 

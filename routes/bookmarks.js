@@ -2,17 +2,18 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../models');
 var logic = require('./../lib/logic.js');
+var auth = require('./../lib/auth');
 
-router.get('/', function(req, res, next) {
+router.get('/', auth.authorizeUser, function(req, res, next) {
   db.Users.findOne({_id: res.locals.userId}).then(function (user) {
     return db.Bookmarks.find({_id: {$in: user.bookmarks}})
   }).then(function (bookmarks) {
-    res.render('bookmarks/index', {bookmarks: bookmarks})
+    res.render('bookmarks/index', {bookmarks: bookmarks, cookieId: req.session.username})
   })
 });
 
 router.get('/new', function (req, res, next) {
-  res.render('bookmarks/new', {categories: (logic.categories).sort()})
+  res.render('bookmarks/new', {cookieId: req.session.username, categories: (logic.categories).sort()})
 })
 
 router.get('/:id', function (req, res, next) {
@@ -26,17 +27,17 @@ router.get('/:id', function (req, res, next) {
         favorite = true
       }
     })
-    res.render('bookmarks/show', {bookmark: bookmark, favorite: favorite, categories: (logic.categories).sort()})
+    res.render('bookmarks/show', {bookmark: bookmark, favorite: favorite, cookieId: req.session.username, categories: (logic.categories).sort()})
   })
 })
 
-router.get('/:id/edit', function (req, res, next) {
+router.get('/:id/edit', auth.authorizeUser, function (req, res, next) {
   db.Bookmarks.findOne({_id: req.params.id}).then(function (bookmark) {
-    res.render('bookmarks/edit', {bookmark: bookmark, categories: (logic.categories).sort()})
+    res.render('bookmarks/edit', {cookieId: req.session.username, bookmark: bookmark, categories: (logic.categories).sort()})
   })
 })
 
-router.get('/:id/delete', function (req, res, next) {
+router.get('/:id/delete', auth.authorizeUser, function (req, res, next) {
   var bookmark;
   db.Bookmarks.findOneAndRemove({_id: req.params.id}).then(function (bm) {
     bookmark = bm;

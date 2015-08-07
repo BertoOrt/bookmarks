@@ -4,7 +4,7 @@ var db = require('./../models');
 var logic = require('./../lib/logic.js')
 
 router.get('/', function (req, res, next) {
-  res.render('index');
+  res.render('index', {cookieId: req.session.username});
 })
 
 router.get('/search', function(req, res, next) {

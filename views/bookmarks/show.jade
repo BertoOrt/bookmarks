@@ -4,18 +4,20 @@ block content
   main
     .container
       if bookmark
+        .favorite
+          input#favorite(type='checkbox' checked=(favorite ? true : undefined))
+          label(for='favorite')
+            span
+            |favorite!
         p name: !{bookmark.name}
-        input#favorite(type='checkbox' checked=(favorite ? true : undefined))
-        label(for='favorite')
-          span
-          |favorite!
         p link: 
           a(href=bookmark.url) !{bookmark.url}
         p description: 
           for paragraph in bookmark.description.split('\n')
             p= paragraph
-        p type: 
-          !{bookmark.type}
-      a.button.edit(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/edit') edit
-      a.button.submit(href='/users/'+ userId + '/bookmarks') back
+      if cookieId === bookmark.userId
+        a.button.edit(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/edit') edit
+        a.button.submit(href='/users/'+ userId + '/bookmarks') back
+      else
+        a.button.submit(href='/categories/') back
   img.imageRight(src='/images/chet.png')  

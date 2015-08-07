@@ -3,9 +3,16 @@ var router = express.Router();
 var db = require('./../models');
 var bcrypt = require('bcryptjs');
 var Error = require('./../lib/error');
+var auth = require('./../lib/auth');
 var Errors = new Error;
 
-router.get('/login', function(req, res, next) {
+
+router.get('/logout', function(req, res, next) {
+  req.session = null;
+  res.redirect('/');
+});
+
+router.get('/login', auth.authorizeLogin, function(req, res, next) {
   res.render('login');
 });
 
@@ -22,7 +29,7 @@ router.post('/login', function(req, res, next) {
   })
 });
 
-router.get('/signup', function(req, res, next) {
+router.get('/signup', auth.authorizeLogin, function(req, res, next) {
   res.render('signup');
 });
 
@@ -36,11 +43,6 @@ router.post('/signup', function(req, res, next) {
   }).then(function (user) {
       res.redirect('/users/' + user._id);
   })
-});
-
-router.get('/logout', function(req, res, next) {
-  req.session = null;
-  res.redirect('/');
 });
 
 module.exports = router;
