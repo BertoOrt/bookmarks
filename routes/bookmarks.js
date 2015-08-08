@@ -23,7 +23,7 @@ router.get('/:id', function (req, res, next) {
     return db.Users.find({favorites: String(bookmark._id)})
   }).then(function (data) {
     data.forEach(function (user) {
-      if (String(user._id) === String(res.locals.userId)) {
+      if (String(user._id) === String(req.session.username)) {
         favorite = true
       }
     })

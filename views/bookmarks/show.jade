@@ -4,11 +4,12 @@ block content
   main
     .container
       if bookmark
-        .favorite
-          input#favorite(type='checkbox' checked=(favorite ? true : undefined))
-          label(for='favorite')
-            span
-            |favorite!
+        if cookieId
+          .favorite
+            input#favorite(type='checkbox' checked=(favorite ? true : undefined))
+            label(for='favorite')
+              span
+              |favorite!
         p name: !{bookmark.name}
         p link: 
           a(href=bookmark.url) !{bookmark.url}

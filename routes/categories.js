@@ -5,7 +5,7 @@ var logic = require('./../lib/logic.js')
 
 router.get('/', function (req, res, next) {
   db.Categories.find({}).then(function (categories) {
-    res.render('categories/index', {categories: categories})
+    res.render('categories/index', {categories: categories, cookieId: req.session.username})
   })
 })
 

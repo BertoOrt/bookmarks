@@ -5,8 +5,9 @@
   border-radius: 25px;
   padding: 2%;
   input {
-    width: 80%;
+    width: 95%;
     display: block;
+    margin-bottom: 2%;
   }
   label {
     width: 40%;
@@ -59,8 +60,9 @@
     margin: 0 auto;
   }
   input {
-    width: 80%;
-    display: block;
+    width: 90%;
+    display: inline-block;
+    margin-bottom: 2%;
   }
   .show {
     width: 20%;
@@ -96,4 +98,15 @@
 
 .selected {
   background: $fifth;
+}
+
+.match {
+  color: gray;
+  display: inline-block;
+  margin-left: 8%;
+}
+
+.errors {
+  color: $red;
+  margin-left: 1%;
 }

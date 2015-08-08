@@ -378,8 +378,9 @@ ol {
   border-radius: 25px;
   padding: 2%; }
   .login input {
-    width: 80%;
-    display: block; }
+    width: 95%;
+    display: block;
+    margin-bottom: 2%; }
   .login label {
     width: 40%; }
   .login label input, .login p {
@@ -420,8 +421,9 @@ ol {
     display: inline-block;
     margin: 0 auto; }
   .signup input, .editProfile input {
-    width: 80%;
-    display: block; }
+    width: 90%;
+    display: inline-block;
+    margin-bottom: 2%; }
   .signup .show, .editProfile .show {
     width: 20%; }
   .signup input[type='submit'].delete, .editProfile input[type='submit'].delete {
@@ -449,6 +451,15 @@ ol {
 
 .selected {
   background: #FFD6C0; }
+
+.match {
+  color: gray;
+  display: inline-block;
+  margin-left: 8%; }
+
+.errors {
+  color: #e87461;
+  margin-left: 1%; }
 
 .image {
   position: absolute;

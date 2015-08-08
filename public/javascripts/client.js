@@ -13,21 +13,28 @@ $( document ).ready(function() {
       event.preventDefault();
     }
   });
+  $('#confirmation').keyup(function (e) {
+    if ($('#password').val() === $('#confirmation').val()) {
+      $('.match').html('passwords match!')
+    }
+    else {
+      $('.match').html('passwords do not match!')
+    }
+  })
   $('#favorite').click(function () {
     var url = $(location).attr('href').split('/');
     var bookmark = url[6];
-    var user = url[4];
     var checked = $('#favorite:checked').val();
     if (checked === 'on') {
-      $.get('/favorite?bookmark='+bookmark+'&user='+user+'&checked='+'yes')
+      $.get('/favorite?bookmark='+bookmark+'&checked='+'yes')
     } else {
-      $.get('/favorite?bookmark='+bookmark+'&user='+user+'&checked='+'no')
+      $.get('/favorite?bookmark='+bookmark+'&checked='+'no')
     }
   })
   $('.search').keyup(function () {
     $('.results').html('');
-    if ($(this).val() !== '') {
-      $.get('/search?search=' + $(this).val(), function (response) {
+    if ($(this).val().trim() !== '') {
+      $.get('/search?search=' + $(this).val().trim(), function (response) {
         response.categories.forEach(function (category) {
           console.log(category);
           $('.results').append('<h3>' + category.name + '</h3>')
@@ -38,4 +45,6 @@ $( document ).ready(function() {
       })
     }
   })
+  al => alert('shit');
+  al()
 });

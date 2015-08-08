@@ -3,7 +3,12 @@ extends layout
 block content
   main
     .container
+      h2 Login
       .login
+        .errors
+          if errors
+            for error in errors
+              p=error
         form(action='/login' method='post')
           label(for='name') Name: 
           input(type='text' name='name' id='name')
