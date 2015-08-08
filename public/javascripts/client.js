@@ -45,6 +45,22 @@ $( document ).ready(function() {
       })
     }
   })
-  al => alert('shit');
-  al()
+  $('#submit').submit(function (e) {
+    if ($('#password').val().trim() === '' && $('#name').val().trim() === '') {
+      $('.errors').html('<p>please input a name</p><br><p>and a password</p>')
+      e.preventDefault();
+    } else if ($('#password').val().trim() === '') {
+      $('.errors').html('<p>please input a password</p>')
+      e.preventDefault();
+    } else if ($('#name').val().trim() === '') {
+      $('.errors').html('<p>please input a name</p>')
+      e.preventDefault();
+    } else if ($('#name').val().trim().length < 3 || $('#password').val().trim().length < 3) {
+      $('.errors').html('<p>Input too short. Make it more than 3 characters</p>')
+      e.preventDefault();
+    } else if ($('#name').val().trim().length > 15 || $('#password').val().trim().length > 15) {
+      $('.errors').html('<p>Input too long. Make it less than 15 characters</p>')
+      e.preventDefault();
+    }
+  })
 });

@@ -4,7 +4,9 @@ var db = require('./../models');
 var logic = require('./../lib/logic.js')
 
 router.get('/', function (req, res, next) {
-  res.render('index', {cookieId: req.session.username});
+  var user = req.session.username;
+  console.log(user);
+  res.render('index', {cookieId: user});
 })
 
 router.get('/search', function(req, res, next) {
@@ -41,7 +43,6 @@ router.get('/search', function(req, res, next) {
 
 router.get('/favorite', function (req, res, next) {
   var user = req.session.username;
-  console.log(user);
   var bookmark = req.query.bookmark;
   var checked = req.query.checked;
   if (checked === 'yes') {

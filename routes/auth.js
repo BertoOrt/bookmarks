@@ -17,14 +17,20 @@ router.get('/login', auth.authorizeLogin, function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
+  var password = req.body.password;
   var name = req.body.name;
   db.Users.findOne({name: name}).then(function (user) {
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-        req.session.username = user._id;
-        res.redirect('/users/' + user._id);
-    }
-    else {
-      res.render('/login', {error: error})
+    if (user) {
+      if (bcrypt.compareSync(password, user.password)) {
+          req.session.username = user._id;
+          res.redirect('/users/' + user._id);
+      } else {
+        var error = 'Password is incorrect, please try again';
+        res.render('login', { flash: error });
+      }
+    } else {
+      var error = 'Name not found, please try again';
+      res.render('login', { flash: error })
     }
   })
 });
@@ -37,11 +43,18 @@ router.post('/signup', function(req, res, next) {
   var name = req.body.name;
   var password = req.body.password;
   var hash = bcrypt.hashSync(password, 8);
-  req.session.username = name;
-  db.Users.create({name: name, password: hash, favorites: [], bookmarks: []}).then(function () {
-    return db.Users.findOne({name: name})
-  }).then(function (user) {
-      res.redirect('/users/' + user._id);
+  db.Users.findOne({name: name}).then(function (user) {
+    if (user) {
+      var error = 'Name already exists, please try again';
+      res.render('signup', {flash: error})
+    } else {
+      db.Users.create({name: name, password: hash, favorites: [], bookmarks: []}).then(function () {
+        return db.Users.findOne({name: name})
+      }).then(function (user) {
+          req.session.username = user._id;
+          res.redirect('/users/' + user._id);
+      })    
+    }
   })
 });
 
