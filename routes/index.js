@@ -5,7 +5,6 @@ var logic = require('./../lib/logic.js')
 
 router.get('/', function (req, res, next) {
   var user = req.session.username;
-  console.log(user);
   res.render('index', {cookieId: user});
 })
 

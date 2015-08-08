@@ -59,3 +59,12 @@ form.fit {
   text-decoration: none;
   color: $black;
 }
+
+#browseCat {
+  display: inline-block;
+}
+
+#browseCat .category {
+  padding: 10px;
+  margin: 1px;
+}

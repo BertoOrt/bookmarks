@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../models');
 var bcrypt = require('bcryptjs');
-var Error = require('./../lib/error');
 var auth = require('./../lib/auth');
-var Errors = new Error;
 
 
 router.get('/logout', function(req, res, next) {
@@ -53,7 +51,7 @@ router.post('/signup', function(req, res, next) {
       }).then(function (user) {
           req.session.username = user._id;
           res.redirect('/users/' + user._id);
-      })    
+      })
     }
   })
 });

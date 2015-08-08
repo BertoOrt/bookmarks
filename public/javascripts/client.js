@@ -5,7 +5,6 @@ $( document ).ready(function() {
   $('#submit').on('click', function (e) {
     var categories = $('.selected').text();
     $('#categories').val(categories);
-    e.preventDefault;
   })
   $('.delete-bookmark').click(function () {
     var confirmation = window.confirm('Are you sure you want to delete this bookmark?');
@@ -39,7 +38,8 @@ $( document ).ready(function() {
           console.log(category);
           $('.results').append('<h3>' + category.name + '</h3>')
           category.bookmarks.forEach(function (bookmark) {
-            $('.results').append('<p><a href=/users/'+bookmark.userId+'/bookmarks/'+bookmark._id+'>'+bookmark.name+'</a>'+ ' by '+bookmark.user[0].name+'</p>')
+            $('.results').append('<p><a href=/users/'+bookmark.userId+'/bookmarks/'+bookmark._id+
+                                  '>'+bookmark.name+'</a>'+ ' by '+bookmark.user[0].name+'</p>')
           })
         })
       })
@@ -47,19 +47,38 @@ $( document ).ready(function() {
   })
   $('#submit').submit(function (e) {
     if ($('#password').val().trim() === '' && $('#name').val().trim() === '') {
-      $('.errors').html('<p>please input a name</p><br><p>and a password</p>')
+      $('.errors').html('<span>please input a name</span><br><span>and a password</span>')
       e.preventDefault();
     } else if ($('#password').val().trim() === '') {
-      $('.errors').html('<p>please input a password</p>')
+      $('.errors').html('<span>please input a password</span>')
       e.preventDefault();
     } else if ($('#name').val().trim() === '') {
-      $('.errors').html('<p>please input a name</p>')
+      $('.errors').html('<span>please input a name</span>')
       e.preventDefault();
     } else if ($('#name').val().trim().length < 3 || $('#password').val().trim().length < 3) {
-      $('.errors').html('<p>Input too short. Make it more than 3 characters</p>')
+      $('.errors').html('<span>Input too short. Make it more than 3 characters</span>')
       e.preventDefault();
     } else if ($('#name').val().trim().length > 15 || $('#password').val().trim().length > 15) {
-      $('.errors').html('<p>Input too long. Make it less than 15 characters</p>')
+      $('.errors').html('<span>Input too long. Make it less than 15 characters</span>')
+      e.preventDefault();
+    }
+  })
+  $('#bookmarkForm').submit(function (e) {
+    var errors = [];
+    if ($('#name').val().trim() === '') {
+      errors.push('<span>please input a name</span>')
+    }
+    if ($('#bookmark').val().trim() === '') {
+      errors.push('<span>please input a bookmark</span>')
+    }
+    if ($('#description').val().trim() === '') {
+      errors.push('<span>please input a description</span>')
+    }
+    if ($('.selected').text() === '') {
+      errors.push('<span>please pick a category</span>')
+    }
+    if (errors.length > 0) {
+      $('.errors').html(errors.join('<br>'))
       e.preventDefault();
     }
   })

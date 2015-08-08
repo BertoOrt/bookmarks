@@ -119,6 +119,7 @@ label {
   margin: 1%; }
 
 textarea {
+  resize: none;
   border: 3px solid rgba(102, 102, 102, 0.3);
   margin: 1%;
   width: 97%;
@@ -285,6 +286,13 @@ form.fit {
   text-decoration: none;
   color: #666; }
 
+#browseCat {
+  display: inline-block; }
+
+#browseCat .category {
+  padding: 10px;
+  margin: 1px; }
+
 body {
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -436,7 +444,8 @@ ol {
 .categories {
   padding: 1%;
   border: 3px solid rgba(102, 102, 102, 0.3);
-  border-radius: 25px; }
+  border-radius: 25px;
+  box-sizing: border-box; }
 
 .category {
   padding: 1%;
@@ -459,7 +468,8 @@ ol {
 
 .errors {
   color: #e87461;
-  margin-left: 1%; }
+  margin-left: 1%;
+  margin: 10px; }
 
 .image {
   position: absolute;

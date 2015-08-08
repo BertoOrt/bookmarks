@@ -6,7 +6,7 @@ block content
       h2 Categories
       .categories
         for category in categories
-          #browseCat.category
-            a(href=('/categories/' +  category._id)) 
+          #browseCat
+            a.category(href=('/categories/' +  category._id)) 
               !{category.name}
   img.imageRight(src='/images/candy.png')  
