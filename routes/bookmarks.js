@@ -30,7 +30,7 @@ router.get('/:id/edit', auth.authorizeUser, function (req, res, next) {
 })
 
 router.get('/:id/delete', auth.authorizeUser, function (req, res, next) {
-  route.removeBookmark(req.params.id).then(route.updateUser).then(route.updateCategories).then(function () {
+  route.findBookmark(req.params.id).then(route.removeBookmark).then(route.updateUser).then(route.deleteCategories).then(function () {
     res.redirect('/users/' + req.session.username + '/bookmarks')
   })
 })
@@ -42,7 +42,7 @@ router.post('/:id/edit', function (req, res, next) {
   var description = req.body.description;
   var categories = logic.clean(req.body.categories.split(' '));
   var bookmarkId = req.params.id;
-  route.editBookmark(name, url, userId, bookmarkId, description, categories).then(route.allPromise).then(route.updateCategories).then(function () {
+  route.editBookmark(name, url, userId, bookmarkId, description, categories).then(route.allPromisePull).then(route.allPromisePush).then(function () {
     res.redirect('/users/' + userId + '/bookmarks')
   })
 })
@@ -53,7 +53,7 @@ router.post('/new', function (req, res, next) {
   var userId = req.session.username;
   var description = req.body.description;
   var categories = logic.clean(req.body.categories.split(' '));
-  route.createBookmark(name, url, userId, description, categories).then(route.allPromise).then(route.updateUserBookmark).then(function () {
+  route.createBookmark(name, url, userId, description, categories).then(route.allPromisePush).then(route.updateUserBookmark).then(function () {
     res.redirect('/users/' + userId + '/bookmarks')
   })
 })

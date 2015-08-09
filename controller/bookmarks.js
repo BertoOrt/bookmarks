@@ -35,18 +35,28 @@ module.exports = {
     return favorite
   },
 
-  removeBookmark: function (id) {
-    return db.Bookmarks.findOneAndRemove({_id: id})
+  removeBookmark: function (bookmark) {
+    return db.Bookmarks.findOneAndRemove({_id: bookmark._id}).then(function () {
+      return bookmark
+    })
   },
 
   updateUser: function (bookmark) {
-    db.Users.update({_id: bookmark.userId}, {$pull: {bookmarks: bookmark._id}});
-    return bookmark;
+    return db.Users.update({_id: bookmark.userId}, {$pull: {bookmarks: bookmark._id}}).then(function () {
+      return bookmark;
+    });
   },
 
-  updateCategories: function (bookmark) {
-    db.Categories.update({}, {$pull: {bookmarks: bookmark._id}}, {multi: true});
-    return bookmark;
+  deleteCategories: function (bookmark) {
+    return db.Categories.update({}, {$pull: {bookmarks: bookmark._id}}, {multi: true}).then(function () {
+      return bookmark;
+    })
+  },
+
+  updateCategories: function (resolve) {
+    return db.Categories.update({}, {$pull: {bookmarks: resolve.bookmark._id}}, {multi: true}).then(function () {
+      return resolve.bookmark;
+    })
   },
 
   editBookmark: function (name, url, userId, bookmarkId, description, categories) {
@@ -54,18 +64,27 @@ module.exports = {
       db.Bookmarks.findByIdAndUpdate(bookmarkId, {$set: {name: name, url: url,
          userId: userId, description: description,
          categories: categories}}).then(function (bookmark) {
-           resolve({bookmark:bookmark, categories: categories})
+           resolve({bookmark:bookmark, categories: categories, userId: userId})
          })
     })
     return promise;
   },
 
-  allPromise: function (result) {
+  allPromisePush: function (result) {
     var promise = new Promise(function (resolve, reject) {
       Promise.all(result.categories.map(function (category) {
         return db.Categories.update({name: category}, {name: category, $push: {bookmarks: result.bookmark._id} }, {upsert: true})
-      })).then(function () {
+      })).then(function (data) {
         resolve({bookmark: result.bookmark, userId: result.userId})
+      })
+    })
+    return promise
+  },
+
+  allPromisePull: function (result) {
+    var promise = new Promise (function (resolve, reject) {
+      db.Categories.update({}, {$pull: {bookmarks: result.bookmark._id}}, {multi: true}).then(function () {
+        resolve(result)
       })
     })
     return promise

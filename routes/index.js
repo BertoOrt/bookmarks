@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/search', function(req, res, next) {
   route.findCategories().then(route.findBookmarks).then(function (categories) {
+    console.log(route.categoriesFilter(categories, req.query.search));
     res.json({'categories': route.categoriesFilter(categories, req.query.search)});
   })
 });
