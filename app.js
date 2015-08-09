@@ -73,6 +73,11 @@ if (app.get('env') === 'development') {
   });
 }
 
+// deploy
+if (app.get('env') === 'production') {
+  app.listen(3000);
+}
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
