@@ -7,7 +7,7 @@ block content
       if bookmarks
         for bookmark in bookmarks
           p
-            a(href='/users/'+userId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
-      if userId
-        a.button.show(href='/users/'+ userId + '/bookmarks/new') New
+            a(href='/users/'+cookieId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
+      if cookieId
+        a.button.show(href='/users/'+ cookieId + '/bookmarks/new') New
   img.image(src='/images/gum.png')  

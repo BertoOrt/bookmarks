@@ -17,8 +17,8 @@ block content
           for paragraph in bookmark.description.split('\n')
             p= paragraph
       if cookieId === bookmark.userId
-        a.button.edit(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/edit') edit
-        a.button.submit(href='/users/'+ userId + '/bookmarks') back
+        a.button.edit(href='/users/'+ cookieId + '/bookmarks/' + bookmark._id + '/edit') edit
+        a.button.submit(href='/users/'+ cookieId + '/bookmarks') back
       else
         a.button.submit(href='/categories/') back
   img.imageRight(src='/images/chet.png')  

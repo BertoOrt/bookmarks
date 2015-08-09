@@ -3,7 +3,7 @@ extends ../layout
 block content
   main
     .container
-      form#bookmarkForm(action='/users/' + userId + '/bookmarks/new' method='post')
+      form#bookmarkForm(action='/users/' + cookieId + '/bookmarks/new' method='post')
         label(for='name') Name: 
         input(type='text' name='name' id='name')
         p
@@ -18,5 +18,5 @@ block content
         input#categories(type='hidden' name='categories')
         .errors
         input#submit.show(type='submit' value='Create bookmark!')
-      a.button.submit(href='/users/'+ userId + '/bookmarks') back
+      a.button.submit(href='/users/'+ cookieId + '/bookmarks') back
   img.imageRight(src='/images/102.png')  

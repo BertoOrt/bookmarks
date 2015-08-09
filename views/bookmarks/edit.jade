@@ -3,7 +3,7 @@ extends ../layout
 block content
   main
     .container
-      form#bookmarkForm(action='/users/' + userId + '/bookmarks/' + bookmark._id + '/edit' method='post')
+      form#bookmarkForm(action='/users/' + cookieId + '/bookmarks/' + bookmark._id + '/edit' method='post')
         label(for='name') Name: 
         input(type='text' name='name' id='name' value=(bookmark.name ? bookmark.name : undefined))
         p 
@@ -20,6 +20,6 @@ block content
         input#categories(type='hidden' name='categories' value=bookmark.categories)
         .errors
         input#submit.show(type='submit' value='submit changes')
-      a.button.submit(href='/users/'+ userId + '/bookmarks/' + bookmark._id) cancel
-      a.button.delete.delete-bookmark(href='/users/'+ userId + '/bookmarks/' + bookmark._id + '/delete') delete
+      a.button.submit(href='/users/'+ cookieId + '/bookmarks/' + bookmark._id) cancel
+      a.button.delete.delete-bookmark(href='/users/'+ cookieId + '/bookmarks/' + bookmark._id + '/delete') delete
   img.image(src='/images/candy.png')  
