@@ -45,7 +45,7 @@ router.get('/:id/delete', auth.authorizeUser, function (req, res, next) {
   }).then(function () {
     return db.Categories.update({}, {$pull: {bookmarks: bookmark._id}}, {multi: true})
   }).then(function () {
-    res.redirect('/users/' + res.locals.userId + '/bookmarks')
+    res.redirect('/users/' + req.session.username + '/bookmarks')
   })
 })
 
@@ -66,7 +66,7 @@ router.post('/:id/edit', function (req, res, next) {
       return db.Categories.update({name: category}, {name: category, $push: {bookmarks: bookmark._id} }, {upsert: true})
     }))
   }).then(function () {
-    res.redirect('/users/' + userId + '/bookmarks')
+    res.redirect('/users/' + req.session.username + '/bookmarks')
   })
 })
 
@@ -87,7 +87,7 @@ router.post('/new', function (req, res, next) {
       return db.Categories.update({name: category}, {name: category, $push: {bookmarks: bookmark._id} }, {upsert: true})
     }))
   }).then(function () {
-    res.redirect('/users/' + userId + '/bookmarks')
+    res.redirect('/users/' + req.session.username + '/bookmarks')
   })
 })
 

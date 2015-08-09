@@ -6,6 +6,6 @@ block content
       h2 My favorites
       for bookmark in bookmarks
         p
-          a(href='/users/'+userId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
-      a.button.show(href='/users/'+ userId + '/bookmarks/new') New
+          a(href='/users/'+cookieId+'/bookmarks/'+ bookmark._id) !{bookmark.name}
+      a.button.show(href='/users/'+ cookieId + '/bookmarks/new') New
   img.imageRight(src='/images/102.png')  

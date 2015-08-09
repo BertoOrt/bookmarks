@@ -46,21 +46,27 @@ $( document ).ready(function() {
     }
   })
   $('#submit').submit(function (e) {
-    if ($('#password').val().trim() === '' && $('#name').val().trim() === '') {
+    if ($('#password').val() === '' && $('#name').val().trim() === '') {
       $('.errors').html('<span>please input a name</span><br><span>and a password</span>')
       e.preventDefault();
-    } else if ($('#password').val().trim() === '') {
+    } else if ($('#password').val() === '') {
       $('.errors').html('<span>please input a password</span>')
       e.preventDefault();
     } else if ($('#name').val().trim() === '') {
       $('.errors').html('<span>please input a name</span>')
       e.preventDefault();
-    } else if ($('#name').val().trim().length < 3 || $('#password').val().trim().length < 3) {
+    } else if ($('#name').val().trim().length < 3 || $('#password').val().length < 3) {
       $('.errors').html('<span>Input too short. Make it more than 3 characters</span>')
       e.preventDefault();
-    } else if ($('#name').val().trim().length > 15 || $('#password').val().trim().length > 15) {
+    } else if ($('#name').val().trim().length > 15 || $('#password').val().length > 15) {
       $('.errors').html('<span>Input too long. Make it less than 15 characters</span>')
       e.preventDefault();
+    }
+    if (document.querySelector('#confirmation')) {
+      if ($('#password').val() !== $('#confirmation').val()) {
+        $('.errors').html('<span>Passwords must match</span>')
+        e.preventDefault();
+      }
     }
   })
   $('#bookmarkForm').submit(function (e) {
