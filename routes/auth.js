@@ -13,9 +13,7 @@ router.get('/login', auth.authorizeLogin, function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  var password = req.body.password;
-  var name = req.body.name;
-  route.loginPromise(name, password).then(function (user) {
+  route.loginPromise(req.body.name, req.body.password).then(function (user) {
     req.session.username = user._id;
     res.redirect('/users/' + user._id);
   }, function (error) {
@@ -28,9 +26,7 @@ router.get('/signup', auth.authorizeLogin, function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-  var name = req.body.name;
-  var password = req.body.password;
-  route.signupPromise(name, password).then(function (user) {
+  route.signupPromise(req.body.name, req.body.password).then(function (user) {
     req.session.username = user._id;
     res.redirect('/users/' + user._id);
   }, function (error) {

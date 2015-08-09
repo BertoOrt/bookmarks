@@ -35,7 +35,6 @@ $( document ).ready(function() {
     if ($(this).val().trim() !== '') {
       $.get('/search?search=' + $(this).val().trim(), function (response) {
         response.categories.forEach(function (category) {
-          console.log(category);
           $('.results').append('<h3>' + category.name + '</h3>')
           category.bookmarks.forEach(function (bookmark) {
             $('.results').append('<p><a href=/users/'+bookmark.userId+'/bookmarks/'+bookmark._id+

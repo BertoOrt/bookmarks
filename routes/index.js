@@ -1,55 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var db = require('./../models');
-var logic = require('./../lib/logic.js')
+var route = require('./../controller/index');
 
 router.get('/', function (req, res, next) {
-  var user = req.session.username;
-  res.render('index', {cookieId: user});
+  res.render('index', {cookieId: req.session.username});
 })
 
 router.get('/search', function(req, res, next) {
-  var categories;
-  db.Categories.find().then(function (cats) {
-    var bookmarks;
-    categories = cats;
-    var bookmarkIds = categories.reduce(function (current, category) {
-        return current.concat(category.bookmarks);
-      }, []);
-    return db.Bookmarks.find({_id: {$in: bookmarkIds}}).then(function (allBookmarks) {
-      bookmarks = allBookmarks;
-      logic.joinCategoriesBookmarks(categories, bookmarks)
-      return bookmarks
-    }).then(function (bookmarks) {
-      var bookmarksId = bookmarks.map(function (bookmark) {
-        return bookmark.userId;
-      })
-      return db.Users.find({_id: {$in: bookmarksId}})
-    }).then(function (users) {
-      logic.bookmarksUsers(bookmarks, users);
-      return categories
-    })
-  }).then(function (categories) {
-    var search = req.query.search;
-    var json = categories.filter(function (category) {
-      if (category.name.indexOf(search) > -1) {
-        return category
-      }
-    })
-    res.json({'categories': json})
+  route.findCategories().then(route.findBookmarks).then(function (categories) {
+    res.json({'categories': route.categoriesFilter(categories, req.query.search)});
   })
 });
 
 router.get('/favorite', function (req, res, next) {
   var user = req.session.username;
   var bookmark = req.query.bookmark;
-  var checked = req.query.checked;
-  if (checked === 'yes') {
-    db.Users.update({_id: user}, {$push: {favorites: bookmark}}).then(function (data) {
-    })
+  if (req.query.checked === 'yes') {
+    route.pushFavorite(user,bookmark).then(function () {})
   } else {
-    db.Users.update({_id: user}, {$pull: {favorites: bookmark}}).then(function (data) {
-    })
+    route.pullFavorite(user,bookmark).then(function () {})
   }
 })
 
