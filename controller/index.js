@@ -11,7 +11,7 @@ module.exports = {
   findBookmarks: function (categories) {
     var bookmarks;
     var bookmarkIds = categories.reduce(function (current, category) {
-        return current.concat(category.bookmarks);
+        return current.concat(category.bookmarks);  // TODO: not now, but in the future, name it boomarkIds
       }, []);
     return db.Bookmarks.find({_id: {$in: bookmarkIds}}).then(function (allBookmarks) {
       bookmarks = allBookmarks;

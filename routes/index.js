@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('./../models');
-var route = require('./../controller/index');
+var route = require('./../controller/index'); //dao = data access object
 
 router.get('/', function (req, res, next) {
   res.render('index', {cookieId: req.session.username});
@@ -9,7 +8,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/search', function(req, res, next) {
   route.findCategories().then(route.findBookmarks).then(function (categories) {
-    console.log(route.categoriesFilter(categories, req.query.search));
     res.json({'categories': route.categoriesFilter(categories, req.query.search)});
   })
 });
